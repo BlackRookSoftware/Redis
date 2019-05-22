@@ -389,7 +389,7 @@ public final class RedisObject
 				
 				if (alwaysBulk || BULK_DETECT_PATTERN.matcher(v).find())
 				{
-					StringBuffer sb = new StringBuffer();
+					StringBuilder sb = new StringBuilder();
 					sb.append('$').append(length()).append(CRLF);
 					if (!isNull())
 						sb.append(v).append(CRLF);
@@ -405,7 +405,7 @@ public final class RedisObject
 				return "-" + ((String)value) + CRLF;
 			case ARRAY:
 			{
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				sb.append('*').append(length()).append(CRLF);
 				if (!isNull())
 				{

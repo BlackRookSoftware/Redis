@@ -374,7 +374,7 @@ public class RESPReader
 				if (len == -1)
 					return "*-1" + CRLF;
 
-				StringBuffer outb = new StringBuffer("*"+len+CRLF);
+				StringBuilder outb = new StringBuilder("*"+len+CRLF);
 				
 				for (int i = 0; i < len; i++)
 					outb.append(readRaw());
