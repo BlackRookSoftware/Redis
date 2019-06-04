@@ -17,6 +17,14 @@ This library contains classes for Redis Server functions, for both client and ad
 
 Currently compatible with Redis 2.6+
 
+### Why?
+
+Some other Redis-interfacing libraries do the bare minimum for supporting commands, and they don't
+separate them categorically into meaningful ways suitable for DAOs or other drivers, nor do they contain
+ways to create/store object data, reflection-wise. 
+
+This one does.  
+
 ### Library
 
 Contained in this release is a series of classes that are used for Redis server functions, plus
