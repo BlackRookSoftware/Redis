@@ -392,6 +392,9 @@ public class RESPReader
 	
 	/**
 	 * Reads bytes until CRLF and returns how many bytes in the "string" (before CRLF). 
+	 * @param dl the data buffer to read from.
+	 * @return the amount of bytes read.
+	 * @throws IOException 
 	 */
 	protected int readLine(DataList dl) throws IOException
 	{
@@ -443,6 +446,10 @@ public class RESPReader
 
 	/**
 	 * Reads bytes until CRLF and returns how many bytes in the "string" (before CRLF). 
+	 * @param dl the data buffer to read from.
+	 * @param len the maximum amount of bytes to read.
+	 * @return the amount of bytes read.
+	 * @throws IOException 
 	 */
 	protected int readBulk(DataList dl, int len) throws IOException
 	{

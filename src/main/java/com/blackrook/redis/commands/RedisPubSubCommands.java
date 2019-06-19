@@ -20,6 +20,7 @@ public interface RedisPubSubCommands
 	 * <p><strong>Time complexity:</strong> O(N) where N is the number of 
 	 * patterns the client is already subscribed to.</p>
 	 * <p>Subscribes the client to the given patterns.</p>
+	 * @param patterns the patterns of channels to subscribe to.
 	 */
 	public void psubscribe(String... patterns);
 
@@ -30,6 +31,7 @@ public interface RedisPubSubCommands
 	 * the client is already subscribed and M is the number of total patterns 
 	 * subscribed in the system (by any client).</p>
 	 * <p>Unsubscribes the client from the given patterns, or from all of them if none is given.</p>
+	 * @param patterns the patterns of channels to subscribe to.
 	 */
 	public void punsubscribe(String... patterns);
 
@@ -38,6 +40,7 @@ public interface RedisPubSubCommands
 	 * <p><strong>Available since 2.0.0.</strong></p>
 	 * <p><strong>Time complexity:</strong> O(N) where N is the number of channels to subscribe to.</p>
 	 * <p>Subscribes the client to the specified channels.</p>
+	 * @param channels the channels to subscribe to.
 	 */
 	public void subscribe(String... channels);
 
@@ -46,6 +49,7 @@ public interface RedisPubSubCommands
 	 * <p><strong>Available since 2.0.0.</strong></p>
 	 * <p><strong>Time complexity:</strong> O(N) where N is the number of clients already subscribed to a channel.</p>
 	 * <p>Unsubscribes the client from the given channels, or from all of them if none is given.</p>
+	 * @param channels the channels to subscribe to.
 	 */
 	public void unsubscribe(String... channels);
 	

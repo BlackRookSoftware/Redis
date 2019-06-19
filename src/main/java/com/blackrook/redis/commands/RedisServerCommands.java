@@ -40,6 +40,8 @@ public interface RedisServerCommands
 	 * <p><strong>Available since 2.4.0.</strong></p>
 	 * <p><strong>Time complexity:</strong> O(N) where N is the number of client connections</p>
 	 * <p>The <code>CLIENT KILL</code> command closes a given client connection identified by ip:port.</p>
+	 * @param ip the IP address or hostname.
+	 * @param port the port number.
 	 * @return true once the client connection was closed.
 	 */
 	public boolean clientKill(String ip, int port);
@@ -59,6 +61,7 @@ public interface RedisServerCommands
 	 * <p><strong>Time complexity:</strong> O(1)</p>
 	 * <p><code>CLIENT PAUSE</code> is a connections control command able to suspend all
 	 * the Redis clients for the specified amount of time (in milliseconds).</p>
+	 * @param millis the amount of time in milliseconds.
 	 * @return always true.
 	 */
 	public boolean clientPause(long millis);
@@ -70,6 +73,7 @@ public interface RedisServerCommands
 	 * parameters of a running Redis server. Not all the configuration parameters 
 	 * are supported in Redis 2.4, while Redis 2.6 can read the whole configuration 
 	 * of a server using this command.</p>
+	 * @param configKey the config key.
 	 * @return the config value.
 	 */
 	public String configGet(String configKey);
@@ -91,6 +95,8 @@ public interface RedisServerCommands
 	 * <p>The <code>CONFIG SET</code> command is used in order to reconfigure the 
 	 * server at run time without the need to restart Redis. You can change both 
 	 * trivial parameters or switch from one to another persistence option using this command.</p>
+	 * @param parameter the parameter.
+	 * @param value the value.
 	 * @return always true.
 	 */
 	public boolean configSet(String parameter, String value);
@@ -143,6 +149,7 @@ public interface RedisServerCommands
 	 * <p><strong>Available since 1.0.0.</strong></p>
 	 * <p>The <a href="/commands/info">INFO</a> command returns information and statistics 
 	 * about the server in a format that is simple to parse by computers and easy to read by humans.</p>
+	 * @param section the section to get info on.
 	 * @return a collection of text lines parseable for info.
 	 */
 	public String info(String section);
@@ -190,6 +197,9 @@ public interface RedisServerCommands
 	 * command to implement application level key eviction policies when using 
 	 * Redis as a Cache.</p>
 	 * <p>This call is here in order to support commands that don't have signatures.</p>
+	 * @param subcommand the object subcommand.
+	 * @param key the key to operate on.
+	 * @return the Redis object returned.
 	 */
 	public RedisObject object(String subcommand, String key);
 
@@ -254,6 +264,9 @@ public interface RedisServerCommands
 	 * <p>The PUBSUB command is an introspection command that allows to inspect 
 	 * the state of the Pub/Sub subsystem.</p>
 	 * <p>This call is here in order to support commands that don't have signatures.</p>
+	 * @param subcommand the pubsub subcommand.
+	 * @param arguments the additional arguments.
+	 * @return the Redis object returned.
 	 */
 	public RedisObject pubsub(String subcommand, String... arguments);
 
@@ -265,6 +278,7 @@ public interface RedisServerCommands
 	 * (relatively short channels and patterns).</p>
 	 * <p>The PUBSUB command is an introspection command that allows to inspect 
 	 * the state of the Pub/Sub subsystem.</p>
+	 * @param pattern the pattern to search for.
 	 * @return a list of active channels, optionally matching the specified pattern.
 	 */
 	public String[] pubsubChannels(String pattern);
@@ -275,6 +289,7 @@ public interface RedisServerCommands
 	 * <p><strong>Time complexity:</strong> O(N), where N is the number of requested channels.</p>
 	 * <p>The PUBSUB command is an introspection command that allows to inspect 
 	 * the state of the Pub/Sub subsystem.</p>
+	 * @param arguments the channel names.
 	 * @return a list of channels and number of subscribers for every channel. 
 	 * The format is channel, count, channel, count, ..., so the list is flat. 
 	 * The order in which the channels are listed is the same as the order of 
@@ -306,6 +321,7 @@ public interface RedisServerCommands
 	 * <p>From <a href="http://redis.io/commands/shutdown">http://redis.io/commands/shutdown</a>:</p>
 	 * <p><strong>Available since 1.0.0.</strong></p>
 	 * <p>The command behavior is the following:</p>
+	 * @param save if true, force save before shutdown.
 	 */
 	public void shutdown(boolean save);
 
@@ -318,6 +334,8 @@ public interface RedisServerCommands
 	 * turning the Redis server into a MASTER. In the proper form {@link #slaveof(String, String)}
 	 * hostname port will make the server a slave of another server listening at the specified 
 	 * hostname and port.</p>
+	 * @param host the hostname.
+	 * @param port the port.
 	 * @return always true.
 	 */
 	public boolean slaveof(String host, String port);
@@ -339,6 +357,9 @@ public interface RedisServerCommands
 	 * <p>From <a href="http://redis.io/commands/slowlog">http://redis.io/commands/slowlog</a>:</p>
 	 * <p><strong>Available since 2.2.12.</strong></p>
 	 * <p>This command is used in order to read and reset the Redis slow queries log.</p>
+	 * @param subcommand the slowlog subcommand.
+	 * @param argument the command argument.
+	 * @return the object returned.
 	 */
 	public RedisObject slowlog(String subcommand, String argument);
 
@@ -347,6 +368,7 @@ public interface RedisServerCommands
 	 * <p><strong>Available since 2.2.12.</strong></p>
 	 * <p>This command is used in order to read and reset the Redis slow queries log.</p>
 	 * @param recentCount the amount of recent entries to view.
+	 * @return the object returned.
 	 */
 	public RedisObject slowlogGet(long recentCount);
 
@@ -354,6 +376,7 @@ public interface RedisServerCommands
 	 * <p>From <a href="http://redis.io/commands/slowlog">http://redis.io/commands/slowlog</a>:</p>
 	 * <p><strong>Available since 2.2.12.</strong></p>
 	 * <p>Gets just the length of the slow log.</p>
+	 * @return the object returned.
 	 */
 	public RedisObject slowlogLen();
 
@@ -361,6 +384,7 @@ public interface RedisServerCommands
 	 * <p>From <a href="http://redis.io/commands/slowlog">http://redis.io/commands/slowlog</a>:</p>
 	 * <p><strong>Available since 2.2.12.</strong></p>
 	 * <p>Resets the slow log. Once deleted the information is lost forever.</p>
+	 * @return the object returned.
 	 */
 	public RedisObject slowlogReset();
 

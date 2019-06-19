@@ -207,6 +207,7 @@ public class RESPWriter implements Closeable
 	
 	/**
 	 * Writes a null object.
+	 * @param flush if true, flushes the stream.
 	 */
 	protected void writeNull(boolean flush)
 	{
@@ -218,6 +219,7 @@ public class RESPWriter implements Closeable
 	/**
 	 * Writes a number to output.
 	 * @param n the number to write.
+	 * @param flush if true, flushes the stream.
 	 */
 	protected void writeNumber(Number n, boolean flush)
 	{
@@ -238,6 +240,7 @@ public class RESPWriter implements Closeable
 	/**
 	 * Writes a bulk string to output.
 	 * @param s the string to write.
+	 * @param flush if true, flushes the stream.
 	 */
 	protected void writeSimpleString(String s, boolean flush)
 	{
@@ -249,6 +252,7 @@ public class RESPWriter implements Closeable
 	/**
 	 * Writes a bulk string.
 	 * @param s the string to write.
+	 * @param flush if true, flushes the stream.
 	 */
 	protected void writeBulkString(String s, boolean flush)
 	{

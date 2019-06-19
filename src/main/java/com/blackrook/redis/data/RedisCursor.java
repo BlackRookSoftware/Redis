@@ -36,8 +36,7 @@ public final class RedisCursor
 	}
 	
 	/**
-	 * Returns the value of the next cursor handle to use for retrieving
-	 * later keys in the iteration.
+	 * @return the value of the next cursor handle to use for retrieving later keys in the iteration.
 	 */
 	public long getCursor()
 	{
@@ -45,8 +44,7 @@ public final class RedisCursor
 	}
 	
 	/**
-	 * Returns the keys to iterate through in this cursor iteration.
-	 * May be empty.
+	 * @return the keys to iterate through in this cursor iteration. May be empty.
 	 */
 	public String[] getKeys()
 	{
@@ -54,8 +52,9 @@ public final class RedisCursor
 	}
 	
 	/**
-	 * If true, this cursor should be used again in order to complete
+	 * Checks if there are more keys to iterate through. If true, this cursor should be used again in order to complete
 	 * a full iteration. Equivalent to {@link #getCursor()}<code> != 0</code>.
+	 * @return true if more keys exist, false if not.
 	 */
 	public boolean hasNext()
 	{

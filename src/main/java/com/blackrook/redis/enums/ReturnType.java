@@ -16,6 +16,7 @@ import com.blackrook.redis.util.Utils;
  * Enumeration of Redis return types, used for figuring out what to return sometimes.
  * Necessary for pipelining commands.
  * @author Matthew Tropiano
+ * @param <C> the type to parse.
  */
 public class ReturnType<C extends Object>
 {

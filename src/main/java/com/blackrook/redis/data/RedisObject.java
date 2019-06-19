@@ -53,6 +53,7 @@ public final class RedisObject
 	
 	/**
 	 * Creates a null object (type STRING).
+	 * @return the Redis object read.
 	 */
 	public static RedisObject createNull()
 	{
@@ -62,6 +63,7 @@ public final class RedisObject
 	/**
 	 * Creates a null object (type ARRAY).
 	 * This differs in the way it is sent.
+	 * @return the Redis object read.
 	 */
 	public static RedisObject createNullArray()
 	{
@@ -71,6 +73,7 @@ public final class RedisObject
 	/**
 	 * Creates an object of type ERROR.
 	 * @param message the error message.
+	 * @return the Redis object read.
 	 */
 	public static RedisObject createError(String message)
 	{
@@ -80,6 +83,7 @@ public final class RedisObject
 	/**
 	 * Creates an object of type INTEGER.
 	 * @param value the integer value.
+	 * @return the Redis object read.
 	 */
 	public static RedisObject create(long value)
 	{
@@ -90,6 +94,7 @@ public final class RedisObject
 	 * Creates an object of type STRING, using a floating-point number.
 	 * Floating-point values in Redis are Strings, internally.
 	 * @param value the double value.
+	 * @return the Redis object read.
 	 */
 	public static RedisObject create(double value)
 	{
@@ -99,6 +104,7 @@ public final class RedisObject
 	/**
 	 * Creates an object of type STRING.
 	 * @param value the String value.
+	 * @return the Redis object read.
 	 */
 	public static RedisObject create(String value)
 	{
@@ -110,6 +116,7 @@ public final class RedisObject
 	/**
 	 * Creates an object of type ARRAY.
 	 * @param value the String[] value.
+	 * @return the Redis object read.
 	 */
 	public static RedisObject create(String... value)
 	{
@@ -125,6 +132,7 @@ public final class RedisObject
 	/**
 	 * Creates an object of type ARRAY, but with all <code>null</code> elements.
 	 * @param length the length of the array to create. If &lt; 0, this returns {@link #NULL_ARRAY}.
+	 * @return the Redis object read.
 	 */
 	public static RedisObject createEmptyArray(int length)
 	{
@@ -134,7 +142,7 @@ public final class RedisObject
 	}
 
 	/**
-	 * Gets the underlying type of this object.
+	 * @return the underlying type of this object.
 	 */
 	public Type getType()
 	{
@@ -142,8 +150,7 @@ public final class RedisObject
 	}
 
 	/**
-	 * Returns true if this represents an error.
-	 * False, otherwise.
+	 * @return true if this represents an error. False, otherwise.
 	 */
 	public boolean isError()
 	{
@@ -151,8 +158,7 @@ public final class RedisObject
 	}
 
 	/**
-	 * Returns true if this is a NULL object, STRING or ARRAY typed.
-	 * False, otherwise.
+	 * @return true if this is a NULL object, STRING or ARRAY typed. False, otherwise.
 	 */
 	public boolean isNull()
 	{
@@ -160,8 +166,7 @@ public final class RedisObject
 	}
 
 	/**
-	 * Returns true if this is an ARRAY-typed object.
-	 * False, otherwise.
+	 * @return true if this is an ARRAY-typed object. False, otherwise.
 	 */
 	public boolean isArray()
 	{
@@ -172,6 +177,7 @@ public final class RedisObject
 	 * If this is an ARRAY type, this returns its length in elements.
 	 * Else, this returns its length in characters.
 	 * Nulls return -1.
+	 * @return the length of this value.
 	 */
 	public int length()
 	{
@@ -196,6 +202,7 @@ public final class RedisObject
 	/**
 	 * If this is an array, this returns an element at a specific index in it.
 	 * @param index the array index to inspect.
+	 * @return the object in the array.
 	 * @throws IllegalStateException if this is NOT an array.
 	 * @throws IndexOutOfBoundsException if the provided index is outside the bounds of this array.
 	 */
@@ -287,6 +294,7 @@ public final class RedisObject
 	 * Arrays are cast to <code>0L</code>.
 	 * Errors are cast to <code>0L</code>.
 	 * Nulls are cast to <code>0L</code>. 
+	 * @return the integer value.
 	 */
 	public long asLong()
 	{
@@ -313,6 +321,7 @@ public final class RedisObject
 	 * Arrays are cast to <code>0.0</code>.
 	 * Errors are cast to <code>0.0</code>.
 	 * Nulls are cast to <code>0.0</code>. 
+	 * @return the double value.
 	 */
 	public double asDouble()
 	{
@@ -339,6 +348,7 @@ public final class RedisObject
 	 * Errors are returned as their message.
 	 * Nulls are <code>null</code>. 
 	 * <p><b>NOTE:</b> Not to be confused with {@link #toString()}.</p>
+	 * @return the String value.
 	 */
 	public String asString()
 	{
@@ -363,6 +373,7 @@ public final class RedisObject
 	 * replete with newline characters. The content returned by this
 	 * method can be sent as-is to a Redis server.
 	 * <p>Equivalent to <code>asRaw(false)</code>.</p>
+	 * @return the raw string value.
 	 */
 	public String asRaw()
 	{
@@ -374,6 +385,7 @@ public final class RedisObject
 	 * replete with newline characters. The content returned by this
 	 * method can be sent as-is to a Redis server.
 	 * @param alwaysBulk if true, all strings are rendered as "bulk," binary-safe strings.
+	 * @return the raw string value.
 	 */
 	public String asRaw(boolean alwaysBulk)
 	{

@@ -48,6 +48,8 @@ public final class RedisMonitorEvent
 	/**
 	 * Parses a string read by a MONITORed connection and
 	 * turns it into an event.
+	 * @param monitorString the Redis Monitor string to parse.
+	 * @return the monitor event emitted.
 	 * @throws RedisParseException if the monitor string is malformed.
 	 */
 	public static RedisMonitorEvent parse(String monitorString)
@@ -248,7 +250,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the server time of the event in seconds since the Epoch.
+	 * @return the server time of the event in seconds since the Epoch.
 	 */
 	public long getServerTimeSeconds()
 	{
@@ -256,7 +258,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the server time remainder of the event in microseconds.
+	 * @return the server time remainder of the event in microseconds.
 	 */
 	public long getServerTimeMicros()
 	{
@@ -264,7 +266,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the server time as a {@link Date}.
+	 * @return the server time as a {@link Date}.
 	 */
 	public Date getServerTime()
 	{
@@ -272,7 +274,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the originating Database id.
+	 * @return the originating Database id.
 	 */
 	public int getDBId()
 	{
@@ -280,7 +282,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the originating IP address.
+	 * @return the originating IP address.
 	 */
 	public String getAddress()
 	{
@@ -288,7 +290,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the originating IP remote port.
+	 * @return the originating IP remote port.
 	 */
 	public int getPort()
 	{
@@ -296,7 +298,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the issued command.
+	 * @return the issued command.
 	 */
 	public String getCommand() 
 	{
@@ -304,7 +306,7 @@ public final class RedisMonitorEvent
 	}
 
 	/**
-	 * Returns the commands arguments.
+	 * @return the commands arguments.
 	 */
 	public String[] getArguments()
 	{
