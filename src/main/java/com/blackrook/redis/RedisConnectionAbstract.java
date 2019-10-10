@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 import com.blackrook.redis.exception.RedisException;
 import com.blackrook.redis.io.RESPReader;
 import com.blackrook.redis.io.RESPWriter;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * A single connection to a Redis server.

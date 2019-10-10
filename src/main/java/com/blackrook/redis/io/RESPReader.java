@@ -13,8 +13,8 @@ import java.io.InputStream;
 import com.blackrook.redis.data.RedisObject;
 import com.blackrook.redis.exception.RedisException;
 import com.blackrook.redis.exception.RedisParseException;
-import com.blackrook.redis.util.DataList;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.DataList;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * Reader class for reading responses from a Redis Socket connection. 

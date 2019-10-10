@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under 
  * the terms of the MIT License, which accompanies this distribution.
  ******************************************************************************/
-package com.blackrook.redis.util;
+package com.blackrook.redis.struct;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

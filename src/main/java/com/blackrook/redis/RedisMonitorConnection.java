@@ -17,7 +17,7 @@ import com.blackrook.redis.event.RedisMonitorEvent;
 import com.blackrook.redis.event.RedisMonitorListener;
 import com.blackrook.redis.event.RedisSubscriptionListener;
 import com.blackrook.redis.exception.RedisException;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * A connection to Redis that sends MONITOR to the database

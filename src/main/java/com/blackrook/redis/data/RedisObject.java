@@ -10,7 +10,7 @@ package com.blackrook.redis.data;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * An object, received or sent to the Redis Server.

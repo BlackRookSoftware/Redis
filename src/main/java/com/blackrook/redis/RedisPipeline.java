@@ -20,8 +20,8 @@ import com.blackrook.redis.enums.Aggregation;
 import com.blackrook.redis.enums.BitwiseOperation;
 import com.blackrook.redis.enums.SortOrder;
 import com.blackrook.redis.io.RESPWriter;
-import com.blackrook.redis.util.KeyValue;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.KeyValue;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * A Redis Pipeline, created from a Redis Connection.

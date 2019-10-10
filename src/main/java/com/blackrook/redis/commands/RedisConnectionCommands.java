@@ -16,7 +16,7 @@ import com.blackrook.redis.enums.Aggregation;
 import com.blackrook.redis.enums.BitwiseOperation;
 import com.blackrook.redis.enums.DataType;
 import com.blackrook.redis.enums.SortOrder;
-import com.blackrook.redis.util.KeyValue;
+import com.blackrook.redis.struct.KeyValue;
 
 /**
  * Interface for Redis connection stuff.

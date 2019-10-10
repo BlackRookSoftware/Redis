@@ -9,8 +9,8 @@ package com.blackrook.redis.enums;
 
 import com.blackrook.redis.data.RedisObject;
 import com.blackrook.redis.io.RESPReader;
-import com.blackrook.redis.util.KeyValue;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.KeyValue;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * Enumeration of Redis return types, used for figuring out what to return sometimes.

@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.blackrook.redis.commands.RedisPubSubCommands;
 import com.blackrook.redis.event.RedisSubscriptionListener;
 import com.blackrook.redis.exception.RedisException;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * A special Redis connection that is essentially a subscription to

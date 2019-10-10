@@ -4,7 +4,7 @@
  * This program and the accompanying materials are made available under 
  * the terms of the MIT License, which accompanies this distribution.
  ******************************************************************************/
-package com.blackrook.redis.util;
+package com.blackrook.redis.struct;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.blackrook.redis.util.TypeProfileFactory.Profile;
+import com.blackrook.redis.struct.TypeProfileFactory.Profile;
 
 /**
  * Type converter class for converting types to others.

@@ -31,14 +31,14 @@ import com.blackrook.redis.enums.SortOrder;
 import com.blackrook.redis.exception.RedisException;
 import com.blackrook.redis.hints.RedisIgnore;
 import com.blackrook.redis.hints.RedisName;
-import com.blackrook.redis.util.KeyValue;
-import com.blackrook.redis.util.TypeConverter;
-import com.blackrook.redis.util.TypeProfileFactory;
-import com.blackrook.redis.util.TypeProfileFactory.Profile;
-import com.blackrook.redis.util.TypeProfileFactory.Profile.FieldInfo;
-import com.blackrook.redis.util.TypeProfileFactory.Profile.MethodInfo;
-import com.blackrook.redis.util.TypeProfileFactory.MemberPolicy;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.KeyValue;
+import com.blackrook.redis.struct.TypeConverter;
+import com.blackrook.redis.struct.TypeProfileFactory;
+import com.blackrook.redis.struct.Utils;
+import com.blackrook.redis.struct.TypeProfileFactory.MemberPolicy;
+import com.blackrook.redis.struct.TypeProfileFactory.Profile;
+import com.blackrook.redis.struct.TypeProfileFactory.Profile.FieldInfo;
+import com.blackrook.redis.struct.TypeProfileFactory.Profile.MethodInfo;
 
 /**
  * A single connection to a Redis server.

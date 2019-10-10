@@ -23,7 +23,7 @@ import com.blackrook.redis.enums.EncodingType;
 import com.blackrook.redis.enums.ReturnType;
 import com.blackrook.redis.exception.RedisException;
 import com.blackrook.redis.exception.RedisParseException;
-import com.blackrook.redis.util.Utils;
+import com.blackrook.redis.struct.Utils;
 
 /**
  * A connection to a Redis server primarily for server and administrative operations.
