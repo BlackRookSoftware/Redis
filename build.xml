@@ -31,7 +31,7 @@
 		com.blackrook.redis.exception,
 		com.blackrook.redis.hints,
 		com.blackrook.redis.io,
-		com.blackrook.redis.util
+		com.blackrook.redis.struct
 		"
 	/>
 	
