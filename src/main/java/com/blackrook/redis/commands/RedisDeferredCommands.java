@@ -21,6 +21,7 @@ import com.blackrook.redis.struct.KeyValue;
  * that don't require immediate feedback.
  * @author Matthew Tropiano
  */
+@SuppressWarnings("javadoc")
 public interface RedisDeferredCommands
 {
 	/**

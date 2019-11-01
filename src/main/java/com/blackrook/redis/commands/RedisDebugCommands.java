@@ -7,6 +7,7 @@
  ******************************************************************************/
 package com.blackrook.redis.commands;
 
+@SuppressWarnings("javadoc")
 public interface RedisDebugCommands
 {
 

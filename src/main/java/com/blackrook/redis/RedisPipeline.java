@@ -29,6 +29,7 @@ import com.blackrook.redis.struct.Utils;
  * when completed.  
  * @author Matthew Tropiano
  */
+@SuppressWarnings("javadoc")
 public class RedisPipeline implements RedisDeferredCommands
 {
 	/** The connection to use. */

@@ -22,6 +22,7 @@ import com.blackrook.redis.struct.KeyValue;
  * Interface for Redis connection stuff.
  * @author Matthew Tropiano
  */
+@SuppressWarnings("javadoc")
 public interface RedisConnectionCommands
 {
 	/** TTL error - no expire. */

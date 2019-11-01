@@ -44,6 +44,7 @@ import com.blackrook.redis.struct.TypeProfileFactory.Profile.MethodInfo;
  * A single connection to a Redis server.
  * @author Matthew Tropiano
  */
+@SuppressWarnings("javadoc")
 public class RedisConnection extends RedisConnectionAbstract implements RedisConnectionCommands, RedisHyperlogCommands, RedisScanCommands
 {
 	private static final TypeProfileFactory PROFILE_FACTORY = new TypeProfileFactory(new MemberPolicy()
@@ -131,6 +132,7 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Creates a pipelined set of commands.
+	 * @return a new pipeline.
 	 */
 	public RedisPipeline startPipeline()
 	{
@@ -1948,6 +1950,7 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	 * <li>All others convert to their string representation.</li>
 	 * </ul>
 	 * @param d the input double.
+	 * @return the string representation of the value.
 	 */
 	protected String specialDouble(double d)
 	{
