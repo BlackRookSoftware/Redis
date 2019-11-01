@@ -3,6 +3,8 @@
 Copyright (c) 2019 Black Rook Software. All rights reserved.  
 [https://github.com/BlackRookSoftware/Redis](https://github.com/BlackRookSoftware/Redis)
 
+[Latest Release](https://github.com/BlackRookSoftware/Redis/releases/latest)
+
 ### Required Libraries
 
 NONE
