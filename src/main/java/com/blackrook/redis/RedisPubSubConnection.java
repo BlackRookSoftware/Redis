@@ -48,6 +48,7 @@ public class RedisPubSubConnection extends RedisConnectionAbstract implements Re
 	
 	/**
 	 * Creates an open connection to localhost, port 6379, the default Redis port.
+	 * @param listeners the listeners to add to this pub/sub connection.
 	 * @throws IOException if an I/O error occurs when creating the socket.
 	 * @throws UnknownHostException if the IP address of the host could not be determined.
 	 * @throws SecurityException if a security manager exists and doesn't allow the connection to be made.
@@ -62,6 +63,7 @@ public class RedisPubSubConnection extends RedisConnectionAbstract implements Re
 	 * Creates an open connection.
 	 * @param host the server hostname or address.
 	 * @param port the server connection port.
+	 * @param listeners the listeners to add to this pub/sub connection.
 	 * @throws IOException if an I/O error occurs when creating the socket.
 	 * @throws UnknownHostException if the IP address of the host could not be determined.
 	 * @throws SecurityException if a security manager exists and doesn't allow the connection to be made.
@@ -77,6 +79,7 @@ public class RedisPubSubConnection extends RedisConnectionAbstract implements Re
 	 * @param host the server hostname or address.
 	 * @param port the server connection port.
 	 * @param password the server database password.
+	 * @param listeners the listeners to add to this pub/sub connection.
 	 * @throws IOException if an I/O error occurs when creating the socket.
 	 * @throws UnknownHostException if the IP address of the host could not be determined.
 	 * @throws SecurityException if a security manager exists and doesn't allow the connection to be made.
@@ -91,6 +94,7 @@ public class RedisPubSubConnection extends RedisConnectionAbstract implements Re
 	/**
 	 * Creates an open connection.
 	 * @param info the {@link RedisInfo} class detailing a connection.
+	 * @param listeners the listeners to add to this pub/sub connection.
 	 * @throws IOException if an I/O error occurs when creating the socket.
 	 * @throws UnknownHostException if the IP address of the host could not be determined.
 	 * @throws SecurityException if a security manager exists and doesn't allow the connection to be made.

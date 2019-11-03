@@ -49,6 +49,7 @@ public class RedisInfo
 	 * Creates a Redis info object, no timeout, nor password.
 	 * @param host the server hostname or address.
 	 * @param port the server connection port.
+	 * @param db the database index.
 	 */
 	public RedisInfo(String host, int port, int db)
 	{
@@ -60,6 +61,7 @@ public class RedisInfo
 	 * @param host the server hostname or address.
 	 * @param port the server connection port.
 	 * @param password the server database password.
+	 * @param db the database index.
 	 */
 	public RedisInfo(String host, int port, String password, int db)
 	{
@@ -70,6 +72,7 @@ public class RedisInfo
 	 * Creates a Redis info object, no password.
 	 * @param host the server hostname or address.
 	 * @param port the server connection port.
+	 * @param db the database index.
 	 * @param timeout the server socket connection timeout in milliseconds. 0 is no timeout.
 	 */
 	public RedisInfo(String host, int port, int db, int timeout)
@@ -95,7 +98,7 @@ public class RedisInfo
 	}
 
 	/**
-	 * Gets the server hostname or address
+	 * @return the server hostname or address
 	 */
 	public String getHost()
 	{
@@ -103,7 +106,7 @@ public class RedisInfo
 	}
 
 	/**
-	 * Gets the server connection port.
+	 * @return the server connection port.
 	 */
 	public int getPort()
 	{
@@ -111,8 +114,7 @@ public class RedisInfo
 	}
 
 	/**
-	 * Gets the server database password.
-	 * If null, no password is submitted.
+	 * @return the server database password. If null, no password is submitted.
 	 */
 	public String getPassword()
 	{
@@ -120,8 +122,7 @@ public class RedisInfo
 	}
 	
 	/**
-	 * Gets the server connection timeout in milliseconds.
-	 * 0 is no timeout.
+	 * @return Gets the server connection timeout in milliseconds. 0 is no timeout.
 	 */
 	public int getTimeout()
 	{
@@ -129,7 +130,7 @@ public class RedisInfo
 	}
 	
 	/**
-	 * Gets the database id for the connection to use.
+	 * @return the database id for the connection to use.
 	 */
 	public int getDB()
 	{

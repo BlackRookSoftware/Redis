@@ -19,7 +19,7 @@ import com.blackrook.redis.enums.SortOrder;
 import com.blackrook.redis.struct.KeyValue;
 
 /**
- * Interface for Redis connection stuff.
+ * Interface for Redis connection commands.
  * @author Matthew Tropiano
  */
 @SuppressWarnings("javadoc")

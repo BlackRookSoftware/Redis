@@ -8,6 +8,10 @@
 package com.blackrook.redis.commands;
 
 @SuppressWarnings("javadoc")
+/**
+ * Specifies the Redis commands for issuing debug conmmands.
+ * @author Matthew Tropiano
+ */
 public interface RedisDebugCommands
 {
 

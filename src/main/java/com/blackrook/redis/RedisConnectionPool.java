@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.TimeoutException;
 
 /**
  * A connection pool for Redis socket connections.
@@ -21,10 +22,16 @@ import java.util.Set;
  */
 public class RedisConnectionPool
 {
+	/** Connection info. */
+	private RedisInfo info;
+	
 	/** Available connections. */
 	private Queue<RedisConnection> availableConnections;
 	/** Used connections. */
 	private Set<RedisConnection> usedConnections;
+	
+	/** Connection pool mutex. */
+	private final Object POOLMUTEX = new Object();
 	
 	// private constructor.
 	private RedisConnectionPool()
@@ -49,72 +56,82 @@ public class RedisConnectionPool
 	
 	/**
 	 * Creates a connection pool using a connection to a host.
-	 * @param connections the number of connections to open.
+	 * @param connectionCount the number of connections to open.
 	 * @param info the {@link RedisInfo} object to use to describe DB information.
 	 * @throws IOException if a connection can't be made.
 	 * @throws UnknownHostException if the server host can't be resolved.
 	 */
-	public RedisConnectionPool(int connections, RedisInfo info) throws IOException
+	public RedisConnectionPool(int connectionCount, RedisInfo info) throws IOException
 	{
 		this();
-		for (int i = 0; i < connections; i++)
+		this.info = info;
+		for (int i = 0; i < connectionCount; i++)
 			availableConnections.add(new RedisConnection(info));
 	}
 	
 	/**
-	 * Attempts to return an available connection.
-	 * Will block until one becomes available.
-	 * ALWAYS RELEASE FINISHED CONNECTIONS!!!!
+	 * Retrieves an available connection from the pool.
 	 * @return an available connection.
+	 * @throws InterruptedException	if an interrupt is thrown by the current thread waiting for an available connection. 
+	 * @throws IOException if a connection cannot be re-created or re-established.
 	 */
-	public RedisConnection getConnection()
+	public RedisConnection getAvailableConnection() throws InterruptedException, IOException
 	{
-		RedisConnection out = null;
-		
-		synchronized (availableConnections)
+		try {
+			return getAvailableConnection(0L);
+		} catch (TimeoutException e) {
+			return null; // Does not happen.
+		}
+	}
+	
+	/**
+	 * Retrieves an available connection from the pool.
+	 * @param waitMillis the amount of time (in milliseconds) to wait for a connection.
+	 * @return an available connection.
+	 * @throws InterruptedException	if an interrupt is thrown by the current thread waiting for an available connection. 
+	 * @throws TimeoutException if the wait lapses and there are no available connections.
+	 * @throws IOException if a connection cannot be re-created or re-established.
+	 */
+	public RedisConnection getAvailableConnection(long waitMillis) throws InterruptedException, TimeoutException, IOException
+	{
+		synchronized (POOLMUTEX)
 		{
-			while (availableConnections.isEmpty())
+			if (availableConnections.isEmpty())
 			{
-				try {
-					availableConnections.wait();
-				} catch (InterruptedException e) {
-					throw new RuntimeException("Broke out of wait() in "+this.getClass().getName());
-				}
+				availableConnections.wait(waitMillis);
+				if (availableConnections.isEmpty())
+					throw new TimeoutException("no available connections.");
 			}
 			
-			out = availableConnections.poll();
-		}
-		
-		synchronized (usedConnections)
-		{
+			RedisConnection out;
+			if ((out = availableConnections.poll()).isClosed())
+				out = new RedisConnection(info);
+			
 			usedConnections.add(out);
+			return out;
 		}
-		
-		return out;
 	}
 
 	/**
-	 * Releases a Redis connection.
+	 * Releases a Redis connection back to this pool.
 	 * @param connection the connection to release.
+	 * @throws IllegalStateException if the connection was never maintained by this pool.
 	 */
 	public void releaseConnection(RedisConnection connection)
 	{
 		if (!usedConnections.contains(connection))
-			throw new IllegalStateException("Connection was not acquired!");
+			throw new IllegalStateException("Tried to release a connection not maintained by this pool.");
 		
-		synchronized (usedConnections)
+		synchronized (POOLMUTEX)
 		{
 			usedConnections.remove(connection);
-		}
-		synchronized (availableConnections)
-		{
 			availableConnections.add(connection);
 			availableConnections.notifyAll();
 		}
 	}
 	
 	/**
-	 * Returns the amount of available connections.
+	 * @return the amount of available connections.
 	 */
 	public int getAvailableConnectionCount()
 	{
@@ -122,7 +139,7 @@ public class RedisConnectionPool
 	}
 	
 	/**
-	 * Returns the amount of used connections.
+	 * @return the amount of used connections.
 	 */
 	public int getUsedConnectionCount()
 	{
