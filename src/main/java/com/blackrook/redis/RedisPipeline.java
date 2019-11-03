@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.blackrook.redis.commands.RedisDeferredCommands;
+import com.blackrook.redis.data.KeyValue;
 import com.blackrook.redis.data.RedisObject;
 import com.blackrook.redis.enums.Aggregation;
 import com.blackrook.redis.enums.BitwiseOperation;
 import com.blackrook.redis.enums.SortOrder;
 import com.blackrook.redis.io.RESPWriter;
-import com.blackrook.redis.struct.KeyValue;
 import com.blackrook.redis.struct.Utils;
 
 /**
@@ -29,7 +29,6 @@ import com.blackrook.redis.struct.Utils;
  * when completed.  
  * @author Matthew Tropiano
  */
-@SuppressWarnings("javadoc")
 public class RedisPipeline implements RedisDeferredCommands
 {
 	/** The connection to use. */
@@ -596,6 +595,10 @@ public class RedisPipeline implements RedisDeferredCommands
 	 * at <code>key</code>. This command overwrites any existing fields in the hash. 
 	 * If <code>key</code> does not exist, a new key holding a hash is created.</p>
 	 * <p>Parameters should alternate between field, value, field, value ...</p>
+	 * @param key the key to use.
+	 * @param field the first field. 
+	 * @param value the first value.
+	 * @param fieldvalues the subsequent fields and values.
 	 */
 	public void hmset(String key, Object field, Object value, Object... fieldvalues)
 	{
@@ -613,6 +616,8 @@ public class RedisPipeline implements RedisDeferredCommands
 	 * <p>Sets the specified fields to their respective values in the hash stored 
 	 * at <code>key</code>. This command overwrites any existing fields in the hash. 
 	 * If <code>key</code> does not exist, a new key holding a hash is created.</p>
+	 * @param key the key to use.
+	 * @param pairs the field-value pairs to set on the hash. 
 	 */
 	@SuppressWarnings("unchecked")
 	public void hmset(String key, KeyValue<String, Object>... pairs)
@@ -858,8 +863,8 @@ public class RedisPipeline implements RedisDeferredCommands
 	 * <p><strong>Available since 2.6.0.</strong></p>
 	 * <p><strong>Time complexity:</strong> O(N) with N being the length in bytes of the script body.</p>
 	 * <p>Load a script into the scripts cache from the specified file without executing it. After the specified 
-	 * command is loaded into the script cache it will be callable using {@link #evalsha(String, String[], String[])} 
-	 * with the correct SHA1 digest of the script, exactly like after the first successful invocation of {@link #eval(String, String[], String[])}.</p>
+	 * command is loaded into the script cache it will be callable using {@link #evalsha(String, String[], Object...)} 
+	 * with the correct SHA1 digest of the script, exactly like after the first successful invocation of {@link #eval(String, String[], Object...)}.</p>
 	 */
 	public void scriptLoad(File content) throws IOException
 	{
@@ -872,9 +877,9 @@ public class RedisPipeline implements RedisDeferredCommands
 	 * <p><strong>Time complexity:</strong> O(N) with N being the length in bytes of the script body.</p>
 	 * <p>Load a script into the scripts cache from the specified input stream (until the end is reached) without executing it. 
 	 * The stream is not closed after read. After the specified command is loaded into the 
-	 * script cache it will be callable using {@link #evalsha(String, String[], String[])} 
+	 * script cache it will be callable using {@link #evalsha(String, String[], Object...)} 
 	 * with the correct SHA1 digest of the script, exactly like after the first 
-	 * successful invocation of {@link #eval(String, String[], String[])}.</p>
+	 * successful invocation of {@link #eval(String, String[], Object...)}.</p>
 	 */
 	public void scriptLoad(InputStream content) throws IOException
 	{
@@ -1450,6 +1455,7 @@ public class RedisPipeline implements RedisDeferredCommands
 	 * <li>All others convert to their string representation.</li>
 	 * </ul>
 	 * @param d the input double.
+	 * @return the string representation of the value.
 	 */
 	protected String specialDouble(double d)
 	{

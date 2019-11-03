@@ -7,9 +7,9 @@
  ******************************************************************************/
 package com.blackrook.redis.enums;
 
+import com.blackrook.redis.data.KeyValue;
 import com.blackrook.redis.data.RedisObject;
 import com.blackrook.redis.io.RESPReader;
-import com.blackrook.redis.struct.KeyValue;
 import com.blackrook.redis.struct.Utils;
 
 /**

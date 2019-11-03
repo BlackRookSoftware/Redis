@@ -21,6 +21,7 @@ import java.util.Map;
 import com.blackrook.redis.commands.RedisConnectionCommands;
 import com.blackrook.redis.commands.RedisHyperlogCommands;
 import com.blackrook.redis.commands.RedisScanCommands;
+import com.blackrook.redis.data.KeyValue;
 import com.blackrook.redis.data.RedisCursor;
 import com.blackrook.redis.data.RedisObject;
 import com.blackrook.redis.enums.Aggregation;
@@ -31,7 +32,6 @@ import com.blackrook.redis.enums.SortOrder;
 import com.blackrook.redis.exception.RedisException;
 import com.blackrook.redis.hints.RedisIgnore;
 import com.blackrook.redis.hints.RedisName;
-import com.blackrook.redis.struct.KeyValue;
 import com.blackrook.redis.struct.TypeConverter;
 import com.blackrook.redis.struct.TypeProfileFactory;
 import com.blackrook.redis.struct.Utils;
@@ -44,7 +44,6 @@ import com.blackrook.redis.struct.TypeProfileFactory.Profile.MethodInfo;
  * A single connection to a Redis server.
  * @author Matthew Tropiano
  */
-@SuppressWarnings("javadoc")
 public class RedisConnection extends RedisConnectionAbstract implements RedisConnectionCommands, RedisHyperlogCommands, RedisScanCommands
 {
 	private static final TypeProfileFactory PROFILE_FACTORY = new TypeProfileFactory(new MemberPolicy()
@@ -464,6 +463,8 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	
 	/**
 	 * Just like {@link #get(String)}, but it casts the result to a long integer.
+	 * @param key the data key.
+	 * @return 
 	 */
 	public Long getLong(String key)
 	{
@@ -501,6 +502,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Just like {@link #getset(String, String)}, but it casts the result to a long integer.
+	 * @param key th@param key the data key.
+	 * @param value 
+	 * @return the previous value.
 	 */
 	public Long getsetLong(String key, String value)
 	{
@@ -510,6 +514,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Just like {@link #getset(String, String)}, but it casts the result to a long integer.
+	 * @param key the data key.
+	 * @param value 
+	 * @return the previous value.
 	 */
 	public Long getsetLong(String key, Number value)
 	{
@@ -694,6 +701,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Just like {@link #hget(String, String)}, but it casts the result to a long integer.
+	 * @param key the data key.
+	 * @param field 
+	 * @return the previous value.
 	 */
 	public Long hgetLong(String key, String field)
 	{
@@ -709,7 +719,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	}
 
 	/**
-	 * Just like {@link #hgetall(String)}, except the keys and values are returned in a map of key -> value.
+	 * Just like {@link #hgetall(String)}, except the keys and values are returned in a map of key to value.
+	 * @param key the data key.
+	 * @return the returned map.
 	 */
 	public HashMap<String, String> hgetallMap(String key)
 	{
@@ -724,6 +736,10 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	 * Just like {@link #hgetall(String)}, except the keys and values are set on 
 	 * a new instance of a Java object via reflection. Fields/Setter Methods annotated with
 	 * {@link RedisIgnore} are ignored.
+	 * @param key the data key.
+	 * @param type the class type to crate and return.
+	 * @param <T> the return type.
+	 * @return the returned object.
 	 * @throws RuntimeException if instantiation cannot happen, either due to
 	 * a non-existent constructor or a non-visible constructor.
 	 * @throws ClassCastException if a incoming type cannot be converted to a field value.
@@ -739,6 +755,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	 * Just like {@link #hgetall(String)}, except the keys and values are set on 
 	 * an existing instance of a Java object via reflection. Fields/Setter Methods annotated with
 	 * {@link RedisIgnore} are ignored.
+	 * @param key the data key.
+	 * @param object the object to store.
+	 * @param <T> the object type.
 	 * @throws RuntimeException if instantiation cannot happen, either due to
 	 * a non-existent constructor or a non-visible constructor.
 	 * @throws ClassCastException if a incoming type cannot be converted to a field value.
@@ -803,13 +822,17 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	}
 
 	/**
-	 * <p>From <a href="http://redis.io/commands/hmset">http://redis.io/commands/hmset</a>:</p>
-	 * <p><strong>Available since 2.0.0.</strong></p>
-	 * <p><strong>Time complexity:</strong> O(N) where N is the number of fields being set.</p>
+	 * <p>From <a href="http://redis.io/commands/hmset">http://redis.io/commands/hmset</a>:
+	 * <p><strong>Available since 2.0.0.</strong>
+	 * <p><strong>Time complexity:</strong> O(N) where N is the number of fields being set.
 	 * <p>Sets the specified fields to their respective values in the hash stored 
 	 * at <code>key</code>. This command overwrites any existing fields in the hash. 
-	 * If <code>key</code> does not exist, a new key holding a hash is created.</p>
-	 * <p>Parameters should alternate between field, value, field, value ...</p>
+	 * If <code>key</code> does not exist, a new key holding a hash is created.
+	 * <p>Parameters should alternate between field, value, field, value ...
+	 * @param key the key.
+	 * @param field the first field.
+	 * @param value the first value.
+	 * @param fieldvalues the subsequent field-values for the hash.
 	 * @return always true.
 	 */
 	public boolean hmset(String key, Object field, Object value, Object... fieldvalues)
@@ -850,6 +873,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	/**
 	 * Like {@link #hmset(String, String, String, String...)}, except abstracted as a map of
 	 * key-value pairs.
+	 * @param key the key.
+	 * @param map the map of field-value pairs for the hash.
+	 * @return true.
 	 */
 	public boolean hmsetMap(String key, Map<String, Object> map)
 	{
@@ -876,6 +902,10 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	 * Like {@link #hmset(String, String, String, String...)}, except each field or
 	 * getter sets the fields and values. Fields/Getter Methods annotated with
 	 * {@link RedisIgnore} are ignored.
+	 * @param key the key.
+	 * @param object the object to convert to a hash.
+	 * @param <T> the object type.
+	 * @return true.
 	 */
 	public <T> boolean hmsetObject(String key, T object)
 	{
@@ -1031,6 +1061,10 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #blpop(long, String, String...)}, except it casts the value to a long integer. 
+	 * @param timeout the timeout in seconds.
+	 * @param key the first key.
+	 * @param keys the subsequent keys.
+	 * @return an object pair consisting of popped list key and the numeric value popped, or null on timeout.
 	 */
 	public KeyValue<String, Long> blpopLong(long timeout, String key, String... keys)
 	{
@@ -1054,6 +1088,10 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #brpop(long, String, String...)}, except it casts the value to a long integer. 
+	 * @param timeout the timeout in seconds.
+	 * @param key the first key.
+	 * @param keys the subsequent keys.
+	 * @return an object pair consisting of popped list key and the numeric value popped, or null on timeout.
 	 */
 	public KeyValue<String, Long> brpopLong(long timeout, String key, String... keys)
 	{
@@ -1074,6 +1112,10 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #brpoplpush(long, String, String)}, except it casts the value to a long integer. 
+	 * @param timeout the timeout in seconds.
+	 * @param source the source key.
+	 * @param destination the destination key.
+	 * @return the value returned as a long.
 	 */
 	public Long brpoplpushLong(long timeout, String source, String destination)
 	{
@@ -1090,6 +1132,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #lindex(String, long)}, except it casts the value to a long integer.
+	 * @param key the key.
+	 * @param index the list index.
+	 * @return the value returned as a long.
 	 */
 	public Long lindexLong(String key, long index)
 	{
@@ -1127,6 +1172,8 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #lpop(String)}, except it casts the value to a long integer.
+	 * @param key the key.
+	 * @return the value returned as a long.
 	 */
 	public Long lpopLong(String key)
 	{
@@ -1188,6 +1235,8 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #rpop(String)}, except it casts the value to a long integer. 
+	 * @param key the key.
+	 * @return the value returned as a long.
 	 */
 	public Long rpopLong(String key)
 	{
@@ -1204,6 +1253,9 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #rpoplpush(String, String)}, except it casts the value to a long integer. 
+	 * @param source the source key.
+	 * @param destination the destination key.
+	 * @return the value returned as a long.
 	 */
 	public Long rpoplpushLong(String source, String destination)
 	{
@@ -1274,12 +1326,12 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	}
 
 	/**
-	 * <p>From <a href="http://redis.io/commands/script-load">http://redis.io/commands/script-load</a>:</p>
-	 * <p><strong>Available since 2.6.0.</strong></p>
-	 * <p><strong>Time complexity:</strong> O(N) with N being the length in bytes of the script body.</p>
+	 * <p>From <a href="http://redis.io/commands/script-load">http://redis.io/commands/script-load</a>:
+	 * <p><strong>Available since 2.6.0.</strong>
+	 * <p><strong>Time complexity:</strong> O(N) with N being the length in bytes of the script body.
 	 * <p>Load a script into the scripts cache from the specified file without executing it. After the specified 
-	 * command is loaded into the script cache it will be callable using {@link #evalsha(String, String[], String[])} 
-	 * with the correct SHA1 digest of the script, exactly like after the first successful invocation of {@link #eval(String, String[], String[])}.</p>
+	 * command is loaded into the script cache it will be callable using {@link #evalsha(String, String[], Object...)} 
+	 * with the correct SHA1 digest of the script, exactly like after the first successful invocation of {@link #eval(String, String[], Object...)}.
 	 * @return the SHA1 digest of the script added into the script cache.
 	 */
 	public String scriptLoad(File content) throws IOException
@@ -1288,14 +1340,14 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	}
 
 	/**
-	 * <p>From <a href="http://redis.io/commands/script-load">http://redis.io/commands/script-load</a>:</p>
-	 * <p><strong>Available since 2.6.0.</strong></p>
-	 * <p><strong>Time complexity:</strong> O(N) with N being the length in bytes of the script body.</p>
+	 * <p>From <a href="http://redis.io/commands/script-load">http://redis.io/commands/script-load</a>:
+	 * <p><strong>Available since 2.6.0.</strong>
+	 * <p><strong>Time complexity:</strong> O(N) with N being the length in bytes of the script body.
 	 * <p>Load a script into the scripts cache from the specified input stream (until the end is reached) without executing it. 
 	 * The stream is not closed after read. After the specified command is loaded into the 
-	 * script cache it will be callable using {@link #evalsha(String, String[], String[])} 
+	 * script cache it will be callable using {@link #evalsha(String, String[], Object...)} 
 	 * with the correct SHA1 digest of the script, exactly like after the first 
-	 * successful invocation of {@link #eval(String, String[], String[])}.</p>
+	 * successful invocation of {@link #eval(String, String[], Object...)}.
 	 * @return the SHA1 digest of the script added into the script cache.
 	 */
 	public String scriptLoad(InputStream content) throws IOException
@@ -1407,6 +1459,8 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 
 	/**
 	 * Like {@link #spop(String)}, except it casts the value to a long integer. 
+	 * @param key the key.
+	 * @return the value returned as a long.
 	 */
 	public Long spopLong(String key)
 	{

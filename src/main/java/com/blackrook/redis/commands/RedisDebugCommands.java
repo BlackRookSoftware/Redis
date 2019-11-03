@@ -7,19 +7,19 @@
  ******************************************************************************/
 package com.blackrook.redis.commands;
 
-@SuppressWarnings("javadoc")
 /**
  * Specifies the Redis commands for issuing debug conmmands.
  * @author Matthew Tropiano
  */
 public interface RedisDebugCommands
 {
-
 	/**
 	 * <p>From <a href="http://redis.io/commands/debug-object">http://redis.io/commands/debug-object</a>:</p>
 	 * <p><strong>Available since 1.0.0.</strong></p>
 	 * <p><code>DEBUG OBJECT</code> is a debugging command that should not be used
 	 * by clients. Check the {@link RedisServerCommands#object(String, String)} command instead.</p>
+	 * @param key the value key.
+	 * @return the debug output.
 	 */
 	public String debugObject(String key);
 
