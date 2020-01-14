@@ -464,7 +464,8 @@ public class RedisConnection extends RedisConnectionAbstract implements RedisCon
 	/**
 	 * Just like {@link #get(String)}, but it casts the result to a long integer.
 	 * @param key the data key.
-	 * @return 
+	 * @return the value of <code>key</code>, or <code>null</code> when <code>key</code> 
+	 * does not exist.
 	 */
 	public Long getLong(String key)
 	{
