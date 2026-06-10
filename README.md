@@ -13,6 +13,11 @@ NONE
 
 [java.base](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/module-summary.html)  
 
+### Where to Get
+
+* [Maven Central](https://central.sonatype.com/artifact/com.blackrooksoftware/redis)  
+* [GitHub Releases](https://github.com/BlackRookSoftware/JSON/releases/latest)
+
 ### Introduction
 
 This library contains classes for Redis Server functions, for both client and administrative use.
@@ -35,35 +40,37 @@ a Redis connection, as well as Redis cursors.
 
 The javadocs contain basic outlines of each package's contents.
 
-### Compiling with Ant
 
-To compile this library with Apache Ant, type:
+### Compiling with Maven
 
-	ant compile
+To install/compile this library and make all artifacts with Apache Maven, type:
 
-To make Maven-compatible JARs of this library (placed in the *build/jar* directory), type:
+	mvn install
 
-	ant jar
+To compile this library, type:
 
-To make Javadocs (placed in the *build/docs* directory):
+	mvn compile
 
-	ant javadoc
+To make Maven-compatible JARs of this library, type:
 
-To compile main and test code and run tests (if any):
+	mvn jar:jar
 
-	ant test
+To make Javadocs:
 
-To make Zip archives of everything (main src/resources, bin, javadocs, placed in the *build/zip* directory):
+	mvn javadoc:javadoc
 
-	ant zip
+To run tests, type:
 
-To compile, JAR, test, and Zip up everything:
+	mvn test
 
-	ant release
+To generate a coverage report, type:
+
+	mvn test jacoco:report
 
 To clean up everything:
 
-	ant clean
+	mvn clean
+
 	
 ### Javadocs
 
