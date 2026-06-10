@@ -16,7 +16,7 @@ NONE
 ### Where to Get
 
 * [Maven Central](https://central.sonatype.com/artifact/com.blackrooksoftware/redis)  
-* [GitHub Releases](https://github.com/BlackRookSoftware/JSON/releases/latest)
+* [GitHub Releases](https://github.com/BlackRookSoftware/Redis/releases/latest)
 
 ### Introduction
 
